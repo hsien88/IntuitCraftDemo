@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "count": {
+      "id": "http://jsonschema.net/count",
+      "type": "integer"
+    },
+    "results": {
+      "id": "http://jsonschema.net/results",
+      "type": "array",
+      "items": {
+        "id": "http://jsonschema.net/results/0",
+        "type": "object",
+        "properties": {
+          "description": {
+            "id": "http://jsonschema.net/results/0/description",
+            "type": ["string", "null"]
+          },
+          "license": {
+            "id": "http://jsonschema.net/results/0/license",
+            "type": "string"
+          },
+          "title": {
+            "id": "http://jsonschema.net/results/0/title",
+            "type": "string"
+          },
+          "download_url": {
+            "id": "http://jsonschema.net/results/0/download_url",
+            "type": "string"
+          },
+          "duration": {
+            "id": "http://jsonschema.net/results/0/duration",
+            "type": "integer"
+          },
+          "last_modified": {
+            "id": "http://jsonschema.net/results/0/last_modified",
+            "type": "string"
+          },
+          "stream_url": {
+            "id": "http://jsonschema.net/results/0/stream_url",
+            "type": "string"
+          },
+          "tag_list": {
+            "id": "http://jsonschema.net/results/0/tag_list",
+            "type": "string"
+          },
+          "id": {
+            "id": "http://jsonschema.net/results/0/id",
+            "type": "integer"
+          }
+        },
+		"required": ["description", "license", "title", "download_url", "duration", "last_modified", "stream_url", "tag_list", "id"]
+      },
+      "additionalItems": false
+    }
+  },
+  "required": [
+    "count",
+    "results"
+  ]
+}
