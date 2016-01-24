@@ -28,7 +28,7 @@ Rest-assured and JUnit
 
 ## Test
 
-* Verify sure all the required fields are returned.  Also verify the returned type for each field is correct.  
+* Verify all the required fields are returned and the type for each field is correct.  
 
 Sample Response
 ```
@@ -66,7 +66,7 @@ Required return fields and types
 
 Use a generated json schema for validation. See `valid-schema.json` in the resource directory.
 
-* Verify if a query parameter is not specified, the default value is used for query.
+* Verify the default value is used for a query if it's not specified.
 
 |Parameter	|Type	  |Default	|Description                          |
 |-----------|-------|---------|-------------------------------------|
@@ -88,14 +88,14 @@ Use a generated json schema for validation. See `valid-schema.json` in the resou
     - Exampe: `GET https://api.nasa.gov/planetary/sounds?q=apollo&api_key=DEMO_KEY&invalidquery=321
     - Expected Result: `Return 10 tracks by using DEMO_KEY, with no filter.`
 
-* Verify the perofrmance for the query is acceptable.
+* Verify the perofrmance for a query is acceptable.
     - Example: `GET https://api.nasa.gov/planetary/sounds`
     - Expected Result: `Should return in less than X seconds`
 
 ###Parameter Specific Testings
 
 ####q 
-* Verify the value specified in q are in the description fields.
+* Verify the value specified in q are in the returned description fields.
     - Exampe: `GET https://api.nasa.gov/planetary/sounds?q="Voyager"
     - Expected Result: `description: "The Voyager 1 spacecraft...`
 
@@ -105,15 +105,15 @@ Use a generated json schema for validation. See `valid-schema.json` in the resou
 
 
 ####limit
-* Verify limit value equals to the number of returned entries
+* Verify limit value specified equals to the number of entries returned.
     - Example: `GET https://api.nasa.gov/planetary/sounds?limit=5`
     - Expected Result: `count: 5` and `5 entires in the results array`
 
-* Verify if limit > available track, it will return available track instead
+* Verify if limit > available tracks, it will return available track instead.
     - Example: `GET https://api.nasa.gov/planetary/sounds?limit=999999999999`
     - Expected result: `count: 64`, when there are 64 sound tracks available on the server.
 
-* Verify correct http error code and error message are returned for invalid/negative limit value
+* Verify correct http status code and error message are returned for invalid/negative limit value
     - Example: `GET https://api.nasa.gov/planetary/sounds?limit="-10"`
     - Expected result: `HTTP status code 4xx`
 
