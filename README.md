@@ -28,7 +28,7 @@ Rest-assured and JUnit
 
 ## Test
 
-1. Verify sure all the required fields are returned.  Also verify the returned type for each field is correct.  
+* Verify sure all the required fields are returned.  Also verify the returned type for each field is correct.  
 
 Sample Response
 ```
@@ -66,68 +66,68 @@ Required return fields and types
 
 Use a generated json schema for validation. See `valid-schema.json` in the resource directory.
 
-2. Verify if a query parameter is not specified, the default value is used for query.
+* Verify if a query parameter is not specified, the default value is used for query.
 
 |Parameter	|Type	  |Default	|Description                          |
 |-----------|-------|---------|-------------------------------------|
 |q	        |string	|None     |	Search text to filter results       |
 |limit	    |int	  |10	      | number of tracks to return          |
 |api_key	  |string |DEMO_KEY |	api.nasa.gov key for expanded usage |
+-------------------------------------------------------------------------
+- Example: `GET https://api.nasa.gov/planetary/sounds`
+- Expected Result: `Return 10 tracks by using DEMO_KEY, with no filter.`
 
-    - Example: `GET https://api.nasa.gov/planetary/sounds`
-    - Expected Result: `Return 10 tracks by using DEMO_KEY, with no filter.`
-
-3. Verify each of the returned value has the expected format.
+* Verify each of the returned value has the expected format.
      -Exampe: `download_url`
      -Expected Result: `In valid URL format`
 
     - Exampe: `last_modified`
     - Result: `In valid date/time format`
 
-4. Verify invalid query parameters are correctly handled.
+* Verify invalid query parameters are correctly handled.
     - Exampe: `GET https://api.nasa.gov/planetary/sounds?q=apollo&api_key=DEMO_KEY&invalidquery=321
     - Expected Result: `Return 10 tracks by using DEMO_KEY, with no filter.`
 
-5. Verify the perofrmance for the query is acceptable.
+* Verify the perofrmance for the query is acceptable.
     - Example: `GET https://api.nasa.gov/planetary/sounds`
     - Expected Result: `Should return in less than X seconds`
 
-###Parameter specific testing
+###Parameter Specific Testings
 
 ####q 
-1. should return a list of entries containing in the description field.
+* Verify the value specified in q are in the description fields.
     - Exampe: `GET https://api.nasa.gov/planetary/sounds?q="Voyager"
     - Expected Result: `description: "The Voyager 1 spacecraft...`
 
-2 .Need to verify that only entries containing q in the description fields are returned.
+* Verify only entries containing q in the description fields are returned.
     - Example: `GET https://api.nasa.gov/planetary/sounds?q="Voyager"
     - Expected result: `All the results entries should contain "Voyager" in its description`
 
 
 ####limit
-1. number of track to return
+* Verify limit value equals to the number of returned entries
     - Example: `GET https://api.nasa.gov/planetary/sounds?limit=5`
     - Expected Result: `count: 5` and `5 entires in the results array`
 
-2. Verify if limit > available track, it will return available track instead
+* Verify if limit > available track, it will return available track instead
     - Example: `GET https://api.nasa.gov/planetary/sounds?limit=999999999999`
     - Expected result: `count: 64`, when there are 64 sound tracks available on the server.
 
-3. Verify correct http error code and error message are returned for invalid/negative limit value
+* Verify correct http error code and error message are returned for invalid/negative limit value
     - Example: `GET https://api.nasa.gov/planetary/sounds?limit="-10"`
     - Expected result: `HTTP status code 4xx`
 
 
 ####api_key
-1. Verify correct http error code and error message are returned for invalid api_key value
+* Verify correct http error code and error message are returned for invalid api_key value
     - Example: `GET https://api.nasa.gov/planetary/sounds?api_key="invalid_key"`
     - Expected result: `HTTP status code 403` and message `An invalid api_key was supplied. Get one at https://api.nasa.gov`
 
-2. Verify the values for hourly limit and daily limit are correct for the different API keys
+* Verify the values for hourly limit and daily limit are correct for the different API keys
     - Example: `GET https://api.nasa.gov/planetary/sounds?api_key=DEMO_KEY`
     - Expected result: `X-RateLimit-Limit: 30` in the http header.
 
-3. Verify correct http status code and error message are returned when the daily/hourly limit has been 
+* Verify correct http status code and error message are returned when the daily/hourly limit has been 
     - Example: `GET https://api.nasa.gov/planetary/sounds?api_key=DEMO_KEY` when `X-RateLimit-Remaining = 0`
     - Expected result: `HTTP status code 403`
 
